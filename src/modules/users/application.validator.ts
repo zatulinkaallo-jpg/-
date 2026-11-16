@@ -1,0 +1,23 @@
+import { zValidator } from "@hono/zod-validator";
+import type ( validationTargets ) from "hono";
+import type z from "zod";
+
+
+
+export class ApplicationValidator {
+    public static validate<
+        T extends z.ZodType
+        Target extends keyof validationTargets,
+    >(terget: Target, schema: T) {
+        return zValidator(target, schema, this.onValidate.bind(this));
+    };
+
+    public static onValidate(result: {
+        success: boolean;
+        error?: unknown;
+    }): void {
+        if (!result.success) {
+            throw result.error;
+        }
+    }
+}
