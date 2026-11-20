@@ -1,4 +1,5 @@
 import { Database } from "bun:sqlite";
+import type { UserType } from "./users.types";
 
 export class UsersRepository {
   constructor(private readonly database: Database) {}
@@ -13,13 +14,14 @@ export class UsersRepository {
       );
     `);
   }
+
 public findById(id: number): UserType | null {
   return this.database
   .query<UserType, { $id: number }>("SELECT * FROM users WHERE id = $id")
   .get({ $id: id });
 }
 
-public findById(email: string): UserType | null {
+public findEymail(email: string): UserType | null {
   return this.database
   .query<UserType, { $email: string }>("SELECT * FROM users WHERE email = $email")
   .get({ $email: email.trim().toLowerCase() });
