@@ -10,13 +10,12 @@ export class ApplicationModule {
   constructor() {
     this.server = new Hono();
     this.database = new Database("api.sqlite");
-
     this.users = new UsersModule(this.database);
   }
 
-  public init(): ApplicationModule {
-    this.users.init();
-
+  public init(): ApplicationModule { 
+    const {users} = this.users.init();
+    this.server.route('/api/users', users)
     return this;
   }
 
@@ -24,3 +23,7 @@ export class ApplicationModule {
     return this.server;
   }
 }
+
+  // const {users} = this.users.init();
+    // this.server.route('/api/users', users);
+    // return this;

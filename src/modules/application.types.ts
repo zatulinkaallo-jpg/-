@@ -27,7 +27,6 @@ export type ApplicationFailedResult = {
 export const IDParamSchema = z.object({
     id: z.string().regex(/^\d+$/, "Id must be number")
         .transform((value: string) => parseInt(value, 10)),
-
 });
 
 export type IDParamType = z.infer<typeof IDParamSchema>;

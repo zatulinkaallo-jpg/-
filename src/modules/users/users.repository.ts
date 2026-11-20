@@ -2,11 +2,14 @@ import { Database } from "bun:sqlite";
 import type { UserType } from "./users.types";
 
 export class UsersRepository {
+    findAll(): any {
+        throw new Error("Method not implemented.");
+    }
   constructor(private readonly database: Database) {}
 
   public init(): void {
     this.database.run(`
-      CREATE TEBLE IF BOT EXISTS users (
+      CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       title TEXT NOT NULL,
       email TEXT NOT NULL,

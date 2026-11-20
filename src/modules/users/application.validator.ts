@@ -1,14 +1,14 @@
 import { zValidator } from "@hono/zod-validator";
-import type ( validationTargets ) from "hono";
+import type { ValidationTargets } from "hono";
 import type z from "zod";
 
 
 
 export class ApplicationValidator {
     public static validate<
-        T extends z.ZodType
-        Target extends keyof validationTargets,
-    >(terget: Target, schema: T) {
+        T extends z.ZodType,
+        Target extends keyof ValidationTargets,
+    >(target: Target, schema: T) {
         return zValidator(target, schema, this.onValidate.bind(this));
     };
 
